@@ -1,7 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Text;
 
-Console.WriteLine("Hello, World!");
 int lenghth = 14;
 string generateRandomString = GenerateRandomString(lenghth);
 Console.WriteLine("Generating random string: " + generateRandomString);
