@@ -1,34 +1,36 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Text;
 
-int[] arr1 = { 1, 2, 3 };
-int[] arr2 = { 2, 7, 4, 1, 8, 11 };
+Console.WriteLine("S1 longest repeat: " + LongestRepeat("abcakbo"));
+Console.WriteLine("S2 longest repeat: " + LongestRepeat("4asbd 15"));
+Console.WriteLine("S3 longest repeat: " + LongestRepeat("aabbccddeeff"));
+//have numbers on repeat
+Console.WriteLine("S4 longest repeat: " + LongestRepeat("abc12abcd123"));
 
-Console.WriteLine("Last stone of arr1" + SmashStone(arr1));
-Console.WriteLine("Last stone of arr2" + SmashStone(arr2));
-
-int SmashStone(int[] arr)
+string LongestRepeat(string s)
 {
-    if (arr.Length == 0) return 0;
+    var countAppeared = new Dictionary<char, int>();
 
-    var stones = arr.ToList();
-    while (stones.Count > 1)
+    foreach (char c in s)
     {
-        stones.Sort((a, b) => b - a);
-        //max
-        int y = stones[0];
-        //2-max
-        int x = stones[1];
-        //remove 2 stones max n 2-max in array
-        stones.RemoveAt(0);
-        stones.RemoveAt(0);
-
-        if (x != y)
+        if (char.IsLetter(c))
         {
-            stones.Add(y - x);
-            //still have stones
+            if (!countAppeared.ContainsKey(c))
+            {
+                countAppeared[c] = 0;
+            }
+            countAppeared[c]++;
         }
     }
 
-    return stones.Count == 0 ? 0 : stones[0];
+    var result = new StringBuilder();
+    foreach (char c in s)
+    {
+        if (countAppeared.ContainsKey(c) && countAppeared[c] > 1)
+        {
+            result.Append(c);
+        }
+    }
+
+    return result.Length == 0 ? "" : result.ToString();
 }
